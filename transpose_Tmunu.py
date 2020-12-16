@@ -23,4 +23,4 @@ else:
     
     # and save the result
     np.savetxt(newfilename, data.reshape(dataShape), fmt='%12.8g')
-    print 'Saved transposed Tmunu to', newfilename
+    #print 'Saved transposed Tmunu to', newfilename
