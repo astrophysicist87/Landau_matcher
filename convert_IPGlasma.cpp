@@ -16,6 +16,7 @@ constexpr bool use_full_Tmunu = false;	// false means zero tau-eta, x-eta, and y
 const double tau0 = 0.6;
 
 void do_Landau_matching(
+		const double xc, const double yc,
 		const double T00_in, const double T0x_in, const double T0y_in, const double T0z_in,
 		const double Txx_in, const double Txy_in, const double Txz_in,
 		const double Tyy_in, const double Tyz_in, const double Tzz_in );
@@ -45,9 +46,9 @@ int main(int argc, char *argv[])
 				>> T0x >> T0y >> T0z >> Txy >> Tyz >> Txz;
 			
 			if ( use_full_Tmunu )
-				do_Landau_matching( T00, -T0x, -T0y, -T0z, Txx, -Txy, -Txz, Tyy, -Tyz, Tzz );
+				do_Landau_matching( xc, yc, T00, -T0x, -T0y, -T0z, Txx, -Txy, -Txz, Tyy, -Tyz, Tzz );
 			else
-				do_Landau_matching( T00, -T0x, -T0y,  0.0, Txx, -Txy,  0.0, Tyy,  0.0, Tzz );
+				do_Landau_matching( xc, yc, T00, -T0x, -T0y,  0.0, Txx, -Txy,  0.0, Tyy,  0.0, Tzz );
 
 		}
 	}
@@ -59,6 +60,7 @@ int main(int argc, char *argv[])
 
 
 void do_Landau_matching(
+		const double xc, const double yc,
 		const double T00_in, const double T0x_in, const double T0y_in, const double T0z_in,
 		const double Txx_in, const double Txy_in, const double Txz_in,
 		const double Tyy_in, const double Tyz_in, const double Tzz_in )
@@ -141,7 +143,9 @@ void do_Landau_matching(
 			}
 		}
 
-		cout << e << "   "
+		cout << xc << "   "
+			 << yc << "   "
+			 << e << "   "
 			 << u[0] << "   "
 			 << u[1] << "   "
 			 << u[2] << "   "
