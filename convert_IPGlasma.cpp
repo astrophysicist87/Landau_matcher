@@ -92,7 +92,7 @@ void do_Landau_matching(
 
 	{
 		int i, j;
-		double e, pPlusPi;
+		double e, PPlusPi;
 		double ev[4], u[4];
 		double pi[16];
 		
@@ -115,7 +115,7 @@ void do_Landau_matching(
 				
 				const double trace = T00_in - Txx_in - Tyy_in - Tzz_in;
 				e = abs(GSL_REAL(eval_i));
-				pPlusPi = (e - trace)/3.0;
+				PPlusPi = (e - trace)/3.0;
 				//cout << "e: " << e << endl;
 				//cout << "u: " << endl;
 				for (int ii = 0; ii < 4; ii++)
@@ -135,7 +135,7 @@ void do_Landau_matching(
 					int g = -static_cast<int>( ii == jj );
 					if (ii==0 && jj==0) g = 1;
 					//cout << tau_factor*(T_in[ii*4+jj] + P*g - (e+P)*ev[ii]*ev[jj]) << "   ";
-					pi[ii*4+jj] = T_in[ii*4+jj] + P*g - (e+P)*ev[ii]*ev[jj];
+					pi[ii*4+jj] = T_in[ii*4+jj] + PPlusPi*g - (e+PPlusPi)*ev[ii]*ev[jj];
 				}
 				//cout << endl;
 
@@ -147,7 +147,7 @@ void do_Landau_matching(
 		cout << xc << "   "
 			 << yc << "   "
 			 << e << "   "
-			 << pPlusPi << "   "
+			 << PPlusPi << "   "
 			 << u[0] << "   "
 			 << u[1] << "   "
 			 << u[2] << "   "
