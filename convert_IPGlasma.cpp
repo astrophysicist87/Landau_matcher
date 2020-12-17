@@ -143,16 +143,17 @@ void do_Landau_matching(
 			}
 		}
 
+		// units are fm and GeV/fm^3
 		cout << xc << "   "
 			 << yc << "   "
-			 << e << "   "
+			 << 0.001*e << "   "
 			 << u[0] << "   "
 			 << u[1] << "   "
 			 << u[2] << "   "
 			 << u[3] << "   ";
 		for (int ii = 0; ii < 4; ii++)
 		for (int jj = ii; jj < 4; jj++)
-			cout << pi[ii*4+jj] << "   ";
+			cout << 0.001*pi[ii*4+jj] << "   ";
 		cout << endl;
 	}
 
