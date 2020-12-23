@@ -46,7 +46,7 @@ $(TARGET):
 	$(CC) $(MAINSRC) -o $(TARGET) $(CFLAGS) $(INCFLAGS)  $(LDFLAGS)
 
 $(TARGET2):
-	$(CC) $(MAINSRC2) -o $(TARGET2) $(CFLAGS) $(INCFLAGS)  $(LDFLAGS)
+	$(CC) $(MAIN2SRC) -o $(TARGET2) $(CFLAGS) $(INCFLAGS)  $(LDFLAGS)
 
 # -------------------------------------------------
 
