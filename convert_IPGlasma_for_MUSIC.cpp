@@ -10,7 +10,7 @@
 
 using namespace std;
 
-constexpr bool use_full_Tmunu = false;	// false means zero tau-eta, x-eta, and y-eta components
+constexpr bool use_full_Tmunu = true;	// false means zero tau-eta, x-eta, and y-eta components
 										// of T^{\mu\nu} before doing Landau matching
 
 const double tau0 = 0.6;
