@@ -50,10 +50,11 @@ int main(int argc, char *argv[])
 				cout << line << endl;
 				continue;
 			}
-			// skip empty lines and print them back out
+			// skip empty lines; don't print them back out since they're not
+			// included in IP-Glasma default output
 			if ( line.empty() )
 			{
-				cout << line << endl;
+				//cout << line << endl;
 				continue;
 			}
 
@@ -170,7 +171,7 @@ void do_Landau_matching(
              << xc << "   "
 			 << yc << "   "
 			 << e << "   "
-			 << PPlusPi << "   "
+			 //<< PPlusPi << "   "
 			 << u[0] << "   "
 			 << u[1] << "   "
 			 << u[2] << "   "
