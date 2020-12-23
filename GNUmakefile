@@ -1,11 +1,10 @@
 # =======================================================================================
-#  Makefile for hydrodynamic causality checks     Christopher Plumberg, September 8, 2015
+#  Makefile for hydrodynamic causality checks     Christopher Plumberg, December 23, 2020
 # =======================================================================================
 ##
 ##  Environments :	MAIN	= 	main sourcefile	
 ##
 ##  Usage : 	(g)make	[all]		compile the whole project		
-##			install	make all and copy binary to $INSTPATH
 ##			distclean	remove all binaries
 ##  
 
@@ -17,46 +16,51 @@ CFLAGS= -std=c++11 -lgsl -lgslcblas -lm
 RM          =   rm -f
 O           =   .o
 LDFLAGS     =   
-#-L/usr/local/src/gsl/2.5/lib
 INCFLAGS    =   
-#-I/usr/local/src/gsl/2.5/include
 SYSTEMFILES =   $(SRCGNU)
 
 
 # --------------- Files involved ------------------
 
 ifeq "$(MAIN)" ""
-MAIN		=	convert_IPGlasma
+MAIN		 =	convert_IPGlasma
 endif
 
-MAINSRC     =   convert_IPGlasma.cpp
+ifeq "$(MAIN)" ""
+MAIN2		 =	convert_IPGlasma_for_MUSIC
+endif
+
+MAINSRC      =   convert_IPGlasma.cpp
+MAIN2SRC	 =   convert_IPGlasma_for_MUSIC.cpp
 
 INC		= 	
 
 # -------------------------------------------------
 
 TARGET		=	$(MAIN)
-INSTPATH	=	..
+TARGET2		=	$(MAIN2)
 
 # --------------- Pattern rules -------------------
 
 $(TARGET):
 	$(CC) $(MAINSRC) -o $(TARGET) $(CFLAGS) $(INCFLAGS)  $(LDFLAGS)
 
+$(TARGET2):
+	$(CC) $(MAINSRC2) -o $(TARGET2) $(CFLAGS) $(INCFLAGS)  $(LDFLAGS)
+
 # -------------------------------------------------
 
-.PHONY:		all distclean distclean install
+.PHONY:		all help distclean
 
-all:		mkobjdir $(TARGET)
+all:		mkobjdir $(TARGET) $(TARGET2)
 
 help:
 		@grep '^##' GNUmakefile
 
 distclean:	
 		-rm $(TARGET)
-
-install:	$(TARGET)
-		cp $(TARGET) $(INSTPATH)
+		-rm $(TARGET2)
 
 # --------------- Dependencies -------------------
 convert_IPGlasma.cpp:         
+convert_IPGlasma_for_MUSIC.cpp:         
