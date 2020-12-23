@@ -52,7 +52,7 @@ $(TARGET2):
 
 .PHONY:		all help distclean
 
-all:		mkobjdir $(TARGET) $(TARGET2)
+all:		$(TARGET) $(TARGET2)
 
 help:
 		@grep '^##' GNUmakefile
