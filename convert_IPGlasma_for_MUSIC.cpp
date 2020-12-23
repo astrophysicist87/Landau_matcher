@@ -82,6 +82,7 @@ int main(int argc, char *argv[])
 
 
 void do_Landau_matching(
+		const double xc, const double yc,
 		const double T00_in, const double T0x_in, const double T0y_in, const double T0z_in,
 		const double Txx_in, const double Txy_in, const double Txz_in,
 		const double Tyy_in, const double Tyz_in, const double Tzz_in )
