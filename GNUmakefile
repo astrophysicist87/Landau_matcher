@@ -19,19 +19,15 @@ LDFLAGS     =
 INCFLAGS    =   
 SYSTEMFILES =   $(SRCGNU)
 
-
 # --------------- Files involved ------------------
 
-ifeq "$(MAIN)" ""
 MAIN		 =	convert_IPGlasma
-endif
-
-ifeq "$(MAIN2)" ""
 MAIN2		 =	convert_IPGlasma_for_MUSIC
-endif
+MAIN3		 =	transpose_eps_u_pi
 
 MAINSRC      =   convert_IPGlasma.cpp
 MAIN2SRC	 =   convert_IPGlasma_for_MUSIC.cpp
+MAIN3SRC	 =   transpose_eps_u_pi.cpp
 
 INC		= 	
 
@@ -39,6 +35,7 @@ INC		=
 
 TARGET		=	$(MAIN)
 TARGET2		=	$(MAIN2)
+TARGET3		=	$(MAIN3)
 
 # --------------- Pattern rules -------------------
 
@@ -48,11 +45,14 @@ $(TARGET):
 $(TARGET2):
 	$(CC) $(MAIN2SRC) -o $(TARGET2) $(CFLAGS) $(INCFLAGS)  $(LDFLAGS)
 
+$(TARGET3):
+	$(CC) $(MAIN3SRC) -o $(TARGET3) $(CFLAGS) $(INCFLAGS)  $(LDFLAGS)
+
 # -------------------------------------------------
 
 .PHONY:		all help distclean
 
-all:		$(TARGET) $(TARGET2)
+all:		$(TARGET) $(TARGET2) $(TARGET3)
 
 help:
 		@grep '^##' GNUmakefile
@@ -60,7 +60,9 @@ help:
 distclean:	
 		-rm $(TARGET)
 		-rm $(TARGET2)
+		-rm $(TARGET3)
 
 # --------------- Dependencies -------------------
 convert_IPGlasma.cpp:         
 convert_IPGlasma_for_MUSIC.cpp:         
+transpose_eps_u_pi.cpp:         
