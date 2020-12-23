@@ -26,7 +26,7 @@ ifeq "$(MAIN)" ""
 MAIN		 =	convert_IPGlasma
 endif
 
-ifeq "$(MAIN)" ""
+ifeq "$(MAIN2)" ""
 MAIN2		 =	convert_IPGlasma_for_MUSIC
 endif
 
