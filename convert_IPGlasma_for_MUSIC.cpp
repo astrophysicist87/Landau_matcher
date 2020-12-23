@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 			double T00, Txx, Tyy, Tzz, T0x, T0y, T0z, Txy, Tyz, Txz;
 
 			istringstream iss(line);
-			iss >>> ix >> iy >> T00 >> Txx >> Tyy >> Tzz
+			iss >> ix >> iy >> T00 >> Txx >> Tyy >> Tzz
 				>> T0x >> T0y >> T0z >> Txy >> Tyz >> Txz;
 			
 			double xc = dx*(ix-0.5*xsize);
