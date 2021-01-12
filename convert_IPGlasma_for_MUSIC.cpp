@@ -13,6 +13,7 @@ using namespace std;
 constexpr bool use_full_Tmunu = false;	// false means zero tau-eta, x-eta, and y-eta components
 										// of T^{\mu\nu} before doing Landau matching
 
+const double hbarc = 0.19733;
 const double tau0 = 0.6;
 
 void do_Landau_matching(
@@ -166,7 +167,7 @@ void do_Landau_matching(
 			}
 		}
 
-		// units are fm and GeV/fm^3
+		// units are: x, y (fm), e (GeV/fm^3), pi (1/fm^4)
 		cout << 0 << "   "
              << xc << "   "
 			 << yc << "   "
@@ -178,7 +179,12 @@ void do_Landau_matching(
 			 << u[3] << "   ";
 		for (int ii = 0; ii < 4; ii++)
 		for (int jj = ii; jj < 4; jj++)
+		{
+			double tau_factor = 1.0 / hbarc;
+			if (ii==3) tau_factor /= tau0;
+			if (jj==3) tau_factor /= tau0;
 			cout << pi[ii*4+jj] << "   ";
+		}
 		cout << endl;
 	}
 
