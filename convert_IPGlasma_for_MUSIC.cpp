@@ -183,7 +183,7 @@ void do_Landau_matching(
 			double tau_factor = 1.0 / hbarc;
 			if (ii==3) tau_factor /= tau0;
 			if (jj==3) tau_factor /= tau0;
-			cout << pi[ii*4+jj] << "   ";
+			cout << pi[ii*4+jj]*tau_factor << "   ";
 		}
 		cout << endl;
 	}
