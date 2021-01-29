@@ -36,6 +36,10 @@ int main(int argc, char *argv[])
 	input_mode = ( argc > 2 ) ? stoi( argv[2] ) : 0;	// input_mode == 0 is default
 	tau0       = ( argc > 3 ) ? stod( argv[3] ) : 0.6;	// tau0 == 0.6 fm/c is default
 
+cerr << "argc = " << argc << endl;
+cerr << "input_mode = " << input_mode << endl;
+cerr << "tau0 = " << tau0 << endl;
+
 	int xsize = -1, ysize = -1;
 	double dx = 0.0, dy = 0.0;
 	
