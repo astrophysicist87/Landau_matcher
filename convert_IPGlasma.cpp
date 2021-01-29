@@ -13,7 +13,8 @@ using namespace std;
 constexpr bool use_full_Tmunu = false;	// false means zero tau-eta, x-eta, and y-eta components
 										// of T^{\mu\nu} before doing Landau matching
 
-const double tau0 = 0.6;
+//const double tau0 = 0.6;
+double tau0;
 
 void do_Landau_matching(
 		const double xc, const double yc,
@@ -27,6 +28,8 @@ int main(int argc, char *argv[])
 
 	// read path to input file from command line
 	string path_to_file = string(argv[1]);
+
+	tau0 = ( argc > 2 ) ? stod( argv[3] ) : 0.6;	// tau0 == 0.6 fm/c is default
 	
 	// then read in file itself
 	ifstream infile(path_to_file.c_str());

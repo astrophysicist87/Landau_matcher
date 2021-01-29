@@ -12,9 +12,13 @@ using namespace std;
 
 constexpr bool use_full_Tmunu = false;	// false means zero tau-eta, x-eta, and y-eta components
 										// of T^{\mu\nu} before doing Landau matching
+int input_mode;
+//constexpr int input_mode = 1;			// 0 - assumes reading in T^{\mu\nu}
+										// 1 - assumes reading in e, u^\mu, and \pi^{\mu\nu}
 
-const double hbarc = 0.19733;
-const double tau0 = 0.6;
+const double hbarc = 0.1973269718;
+//const double tau0 = 0.6;
+double tau0;
 
 void do_Landau_matching(
 		const double xc, const double yc,
@@ -28,6 +32,9 @@ int main(int argc, char *argv[])
 
 	// read path to input file from command line
 	string path_to_file = string(argv[1]);
+
+	input_mode = ( argc > 2 ) ? stoi( argv[2] ) : 0;	// input_mode == 0 is default
+	tau0       = ( argc > 3 ) ? stod( argv[3] ) : 0.6;	// tau0 == 0.6 fm/c is default
 
 	int xsize = -1, ysize = -1;
 	double dx = 0.0, dy = 0.0;
@@ -63,16 +70,46 @@ int main(int argc, char *argv[])
 			double T00, Txx, Tyy, Tzz, T0x, T0y, T0z, Txy, Tyz, Txz;
 
 			istringstream iss(line);
-			iss >> ix >> iy >> T00 >> Txx >> Tyy >> Tzz
-				>> T0x >> T0y >> T0z >> Txy >> Tyz >> Txz;
+			if ( input_mode == 0 )
+				iss >> ix >> iy >> T00 >> Txx >> Tyy >> Tzz
+					>> T0x >> T0y >> T0z >> Txy >> Tyz >> Txz;
+
+					T0x *= -1.0;
+					T0y *= -1.0;
+					T0z *= -1.0;
+					Txy *= -1.0;
+					Tyz *= -1.0;
+					Txz *= -1.0;
+			else
+			{
+				double dummy;
+				double e, utau, ux, uy, ueta;
+				double pi00, pi0x, pi0y, pi0eta, pixx, pixy, pixeta, piyy, piyeta, pietaeta;
+				double g00 = 1.0, gxx = -1.0, gyy = -1.0, gzz = -1.0;
+				iss >> dummy >> ix >> iy >> e >> utau >> ux >> uy >> ueta
+					>> pi00 >> pi0x >> pi0y >> pi0eta >> pixx >> pixy
+					>> pixeta >> piyy >> piyeta >> pietaeta;
+
+				double uz = tau0 * ueta;
+				T00 = (4./3.)*e*utau*utau - e*g00/3.0 + hbarc*pi00;
+				T0x = (4./3.)*e*utau*ux               + hbarc*pi0x;
+				T0y = (4./3.)*e*utau*uy               + hbarc*pi0y;
+				T0z = (4./3.)*e*utau*uz               + hbarc*tau0*pi0eta;
+				Txx = (4./3.)*e*ux*ux     - e*gxx/3.0 + hbarc*pixx;
+				Txy = (4./3.)*e*ux*uy                 + hbarc*pixy;
+				Txz = (4./3.)*e*ux*uz                 + hbarc*tau0*pixeta;
+				Tyy = (4./3.)*e*uy*uy     - e*gyy/3.0 + hbarc*piyy;
+				Tyz = (4./3.)*e*uy*uz                 + hbarc*tau0*piyeta;
+				Tzz = (4./3.)*e*uz*uz     - e*gzz/3.0 + hbarc*tau0*tau0*pietaeta;
+			}
 			
 			double xc = dx*(ix-0.5*xsize);
 			double yc = dy*(iy-0.5*ysize);
 
 			if ( use_full_Tmunu )
-				do_Landau_matching( xc, yc, T00, -T0x, -T0y, -T0z, Txx, -Txy, -Txz, Tyy, -Tyz, Tzz );
+				do_Landau_matching( xc, yc, T00, T0x, T0y, T0z, Txx, Txy, Txz, Tyy, Tyz, Tzz );
 			else
-				do_Landau_matching( xc, yc, T00, -T0x, -T0y,  0.0, Txx, -Txy,  0.0, Tyy,  0.0, Tzz );
+				do_Landau_matching( xc, yc, T00, T0x, T0y, 0.0, Txx, Txy, 0.0, Tyy, 0.0, Tzz );
 
 		}
 	}
