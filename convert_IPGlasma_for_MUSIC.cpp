@@ -71,6 +71,7 @@ cerr << "tau0 = " << tau0 << endl;
 			}
 
 			int ix, iy;
+			double xc, yc;
 			double T00, Txx, Tyy, Tzz, T0x, T0y, T0z, Txy, Tyz, Txz;
 
 			istringstream iss(line);
@@ -85,6 +86,9 @@ cerr << "tau0 = " << tau0 << endl;
 				Txy *= -1.0;
 				Tyz *= -1.0;
 				Txz *= -1.0;
+
+				xc = dx*(ix-0.5*xsize);
+				yc = dy*(iy-0.5*ysize);
 			}
 			else
 			{
@@ -92,7 +96,7 @@ cerr << "tau0 = " << tau0 << endl;
 				double e, utau, ux, uy, ueta;
 				double pi00, pi0x, pi0y, pi0eta, pixx, pixy, pixeta, piyy, piyeta, pietaeta;
 				double g00 = 1.0, gxx = -1.0, gyy = -1.0, gzz = -1.0;
-				iss >> dummy >> ix >> iy >> e >> utau >> ux >> uy >> ueta
+				iss >> dummy >> xc >> yc >> e >> utau >> ux >> uy >> ueta
 					>> pi00 >> pi0x >> pi0y >> pi0eta >> pixx >> pixy
 					>> pixeta >> piyy >> piyeta >> pietaeta;
 
@@ -109,8 +113,8 @@ cerr << "tau0 = " << tau0 << endl;
 				Tzz = (4./3.)*e*uz*uz     - e*gzz/3.0 + hbarc*tau0*tau0*pietaeta;
 			}
 			
-			double xc = dx*(ix-0.5*xsize);
-			double yc = dy*(iy-0.5*ysize);
+			//double xc = dx*(ix-0.5*xsize);
+			//double yc = dy*(iy-0.5*ysize);
 
 			if ( use_full_Tmunu )
 				do_Landau_matching( xc, yc, T00, T0x, T0y, T0z, Txx, Txy, Txz, Tyy, Tyz, Tzz );
