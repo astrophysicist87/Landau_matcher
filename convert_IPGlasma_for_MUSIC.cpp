@@ -71,15 +71,17 @@ int main(int argc, char *argv[])
 
 			istringstream iss(line);
 			if ( input_mode == 0 )
+			{
 				iss >> ix >> iy >> T00 >> Txx >> Tyy >> Tzz
 					>> T0x >> T0y >> T0z >> Txy >> Tyz >> Txz;
 
-					T0x *= -1.0;
-					T0y *= -1.0;
-					T0z *= -1.0;
-					Txy *= -1.0;
-					Tyz *= -1.0;
-					Txz *= -1.0;
+				T0x *= -1.0;
+				T0y *= -1.0;
+				T0z *= -1.0;
+				Txy *= -1.0;
+				Tyz *= -1.0;
+				Txz *= -1.0;
+			}
 			else
 			{
 				double dummy;
